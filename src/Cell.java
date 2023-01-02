@@ -11,8 +11,9 @@ public class Cell {
         cell = cellLeftPart + cellContent + cellRightPart;
     }
 
-    private String setCellContent(String pieceRepresentation){
-        cellContent = pieceRepresentation;
+    protected String setCellContent(String pieceRepresentation){
+        this.cellContent = pieceRepresentation;
+        cell = cellLeftPart + cellContent + cellRightPart;
         return cell;
     }
     protected String getCell(){
