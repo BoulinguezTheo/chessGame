@@ -2,7 +2,7 @@ public abstract class Piece {
     protected String color;
     protected int xCor;
     protected int yCor;
-    protected String representation = "p";
+    protected String representation;
 
     public Piece(){
         
@@ -10,5 +10,14 @@ public abstract class Piece {
 
     protected String getRepresentation(){
         return this.representation;
+    }
+    protected int getXCor(){
+        return this.xCor;
+    }
+    protected int getYCor(){
+        return this.yCor;
+    }
+    protected String getColor(){
+        return this.color;
     }
 }
