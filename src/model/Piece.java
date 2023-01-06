@@ -1,3 +1,5 @@
+package model;
+
 public abstract class Piece {
     protected String color;
     protected int xCor;
@@ -8,16 +10,16 @@ public abstract class Piece {
         
     }
 
-    protected String getRepresentation(){
+    public String getRepresentation(){
         return this.representation;
     }
-    protected int getXCor(){
+    public int getXCor(){
         return this.xCor;
     }
-    protected int getYCor(){
+    public int getYCor(){
         return this.yCor;
     }
-    protected String getColor(){
+    public String getColor(){
         return this.color;
     }
 }

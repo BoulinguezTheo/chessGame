@@ -1,4 +1,8 @@
-public class King extends Piece{
+package model.Pieces;
+
+import model.Piece;
+
+public class King extends Piece {
     
     public King(int pXCor, int pYCor, String pColor){
         super.xCor = pXCor;

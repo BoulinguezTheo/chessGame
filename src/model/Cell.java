@@ -1,3 +1,5 @@
+package model;
+
 public class Cell {
     String cell;
     String cellContent;
@@ -13,25 +15,25 @@ public class Cell {
         cell = cellLeftPart + cellContent + cellRightPart;
     }
 
-    protected String setCellContent(String pieceRepresentation, String pColor){
+    public String setCellContent(String pieceRepresentation, String pColor){
         this.color = pColor;
         this.cellContent = pieceRepresentation;
         cell = cellLeftPart + cellContent + cellRightPart;
         return cell;
     }
-    protected String getCell(){
+    public String getCell(){
         return this.cell;
     }
-    protected String getCellLeft(){
+    public String getCellLeft(){
         return this.cellLeftPart;
     }
-    protected String getCellContent(){
+    public String getCellContent(){
         return this.cellContent;
     }
-    protected String getCellRight(){
+    public String getCellRight(){
         return this.cellRightPart;
     }
-    protected String getCellColor(){
+    public String getCellColor(){
         return this.color;
     }
 

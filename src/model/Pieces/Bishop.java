@@ -1,3 +1,7 @@
+package model.Pieces;
+
+import model.Piece;
+
 public class Bishop extends Piece {
     
 

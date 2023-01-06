@@ -1,5 +1,12 @@
+package factory;
+
+import model.*;
+import model.Pieces.*;
+
 public class Factory {
-    
+    public static Player createPlayer(String pName){
+        return new Player(pName);
+    }
     public static Piece createPawn(int xCor, int yCor, String color){
         return new Pawn(xCor, yCor, color);
     }
