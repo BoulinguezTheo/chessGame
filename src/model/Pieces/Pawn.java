@@ -37,29 +37,25 @@ public class Pawn extends Piece {
         }
         //move to eat to the left
         int[] eatPiece1 = {xCor + sign, yCor + 1};
-        if (!pBoard.getCells()[eatPiece1[0]][eatPiece1[1]].getCellContent().equals(" ")) {
-            availableMoves.add(new int[]{xCor + sign, yCor + 1});
-        }
-        //move to eat to the right
-        try {
-            int[] eatPiece2 = {xCor + sign, yCor - 1};
-            if (!pBoard.getCells()[eatPiece2[0]][eatPiece2[1]].getCellContent().equals(" ")) {
-                availableMoves.add(new int[]{xCor + sign, yCor - 1});
-            }
-            //First move of this pawn only
-        } catch(ArrayIndexOutOfBoundsException e){
-            //For pawns on the extremities moves generating can be out of board, we want to skip that exception if it happens
-        }
+        eatMove(eatPiece1, pBoard, availableMoves);
 
-        try {
-            if (xCor == initXCor && yCor == initYCor) {
-                availableMoves.add(new int[]{xCor + 2 * sign, yCor});
-            }
-        } catch(ArrayIndexOutOfBoundsException e){
-            //For pawns on the extremities moves generating can be out of board, we want to skip that exception if it happens
+        //move to eat to the right
+        int[] eatPiece2 = {xCor + sign, yCor - 1};
+        eatMove(eatPiece2, pBoard, availableMoves);
+
+        if (xCor == initXCor && yCor == initYCor) {
+            availableMoves.add(new int[]{xCor + 2 * sign, yCor});
         }
 
         return availableMoves;
+    }
+
+    public void eatMove(int[] eatPiece, ChessData pBoard, ArrayList<int[]> pAvailableMoves){
+        if(eatPiece[0] >= 0 && eatPiece[0] >= 7 && eatPiece[1] >= 0 && eatPiece[1] >= 7) {
+            if (!pBoard.getCells()[eatPiece[0]][eatPiece[1]].getCellContent().equals(" ")) {
+                pAvailableMoves.add(new int[]{xCor + sign, yCor + sign});
+            }
+        }
     }
 
     
