@@ -56,7 +56,7 @@ public class Chess {
                     stateMachine = TurnState.STARTTURN;
                     break;
                 case REMOVEPIECE:
-                    board.getPieceList().remove(pieceToMove);
+                    board.getPieceList().remove(board.getPiece(coordinatesDestination));
                     stateMachine = TurnState.SETNEWCOORDINATES;
                     break;
             }
