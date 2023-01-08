@@ -1,7 +1,5 @@
 package view;
 
-import controller.Chess;
-import model.Cell;
 import model.ChessData;
 import model.Player;
 
@@ -46,17 +44,23 @@ public class DisplayEn{
     public void displayAskPlayerName(String number){
         System.out.print("Enter player " + number +"'s name: ");
     }
-    public String askPieceToMove(){
-        displayAskPieceToMove();
+    public String getInputCoordinates(){
         return inputUser.nextLine();
     }
-    public String askAgainPieceToMove(){
+    public void displayWrongInput(){
         System.out.println("Wrong input, please try again.");
-        return askPieceToMove();
+    }
+    public void displayPlayerTurn(){
+        System.out.println(board.getActivePlayer().getName() + " it's your move.");
     }
     public void displayAskPieceToMove(){
-        System.out.println(board.getActivePlayer().getName() + " it's your move.");
-        System.out.print("Coordinates of piece to move: ");
+        System.out.println("Choose a piece to move.");
+    }
+    public void displayAskMoveTo(){
+        System.out.println("Where do you want to move the piece?");
+    }
+    public void displayEnterCoordinates(){
+        System.out.print("Enter coordinates: ");
     }
 
 }
