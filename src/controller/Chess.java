@@ -2,7 +2,6 @@ package controller;
 
 import model.ChessData;
 import model.Piece;
-import model.Pieces.Pawn;
 import view.DisplayEn;
 import java.util.ArrayList;
 
@@ -27,13 +26,12 @@ public class Chess {
     }
 
     public void play(){
-        stateMachine = TurnState.GETMOVE;
+        stateMachine = TurnState.STARTTURN;
         Piece pieceToMove = null;
         int[] coordinatesDestination = null;
 
         while(stateMachine != stateMachine.END){
-            
-            this.interactions.displayBoard(this.board.getPlayer1(), this.board.getPlayer2());
+
             switch(stateMachine){
                 case STARTTURN:
                     this.interactions.displayBoard(this.board.getPlayer1(), this.board.getPlayer2());
@@ -48,8 +46,11 @@ public class Chess {
                     stateMachine = moveType(coordinatesDestination);
                     break;
                 case SETNEWCOORDINATES:
+                    this.board.getCells()[pieceToMove.getXCor()][pieceToMove.getYCor()].setCellContent(" ", " ");
                     movePiece(pieceToMove, coordinatesDestination);
+                    this.board.getCells()[coordinatesDestination[0]][coordinatesDestination[1]].setCellContent(pieceToMove.getRepresentation(), pieceToMove.getColor());
                     this.board.setActivePlayer();
+                    stateMachine = TurnState.STARTTURN;
                     break;
             }
         }
