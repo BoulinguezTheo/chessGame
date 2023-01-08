@@ -9,6 +9,9 @@ public class ChessData {
     Player player1;
     Player player2;
     Player activePlayer;
+
+
+
     ArrayList<Piece> pieceList;
     Cell cells[][];
     public ChessData(){
@@ -108,6 +111,9 @@ public class ChessData {
             }
         }
         return null;
+    }
+    public ArrayList<Piece> getPieceList() {
+        return pieceList;
     }
 
 }

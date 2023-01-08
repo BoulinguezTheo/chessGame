@@ -62,5 +62,8 @@ public class DisplayEn{
     public void displayEnterCoordinates(){
         System.out.print("Enter coordinates: ");
     }
+    public void displayMoveNotAllowed(){
+        System.out.println("This move is not allowed, please try again.");
+    }
 
 }

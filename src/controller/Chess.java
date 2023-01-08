@@ -41,6 +41,7 @@ public class Chess {
                 case GETMOVE:
                     pieceToMove = getPieceToMove();
                     interactions.displayAskMoveTo();
+                    interactions.displayEnterCoordinates();
                     coordinatesDestination = getCoordinates();
                     stateMachine = correctMove(coordinatesDestination, pieceToMove);
                     break;
@@ -53,6 +54,10 @@ public class Chess {
                     this.board.getCells()[coordinatesDestination[0]][coordinatesDestination[1]].setCellContent(pieceToMove.getRepresentation(), pieceToMove.getColor());
                     this.board.setActivePlayer();
                     stateMachine = TurnState.STARTTURN;
+                    break;
+                case REMOVEPIECE:
+                    board.getPieceList().remove(pieceToMove);
+                    stateMachine = TurnState.SETNEWCOORDINATES;
                     break;
             }
         }
@@ -73,14 +78,13 @@ public class Chess {
         Piece piece;
         interactions.displayAskPieceToMove();
         interactions.displayEnterCoordinates();
-        int[] coordinates = getCoordinates();
+        int[] coordinates = null;
         do {
+            coordinates = getCoordinates();
             piece = board.getPiece(coordinates);
             if (piece == null) {
                 interactions.displayWrongInput();
                 interactions.displayEnterCoordinates();
-                interactions.getInputCoordinates();
-                coordinates = getCoordinates();
                 validPiece = false;
             } else if (!this.board.getActivePlayer().getColor().equalsIgnoreCase(piece.getColor())){
                 interactions.displayWrongInput();
@@ -97,9 +101,13 @@ public class Chess {
         int columnInput;
         int lineInput;
         boolean validInput;
-        interactions.displayEnterCoordinates();
             String pieceToMove = this.interactions.getInputCoordinates().toLowerCase();
         do {
+            while(pieceToMove.length() != 2){
+                interactions.displayWrongInput();
+                interactions.displayEnterCoordinates();
+                pieceToMove = this.interactions.getInputCoordinates().toLowerCase();
+            }
             columnInput = (pieceToMove.charAt(0)) - 97;
             lineInput = Integer.parseInt(String.valueOf(pieceToMove.charAt(1))) - 1;
 
@@ -117,17 +125,20 @@ public class Chess {
     private boolean isMoveAvailable(int[] pCoordinates, Piece pPieceToMove){
         ArrayList<int[]> movesPossible = pPieceToMove.getMovesPossible(board);
         for(int[] move : movesPossible){
-            if(move == pCoordinates){
+            if(move[0] == pCoordinates[0] && move[1] == pCoordinates[1]){
                 return true;
             }
         }
         return false;
     }
     private TurnState correctMove(int[] pCoordinatesDestination, Piece pPieceToMove){
-        if(!isMoveAvailable(pCoordinatesDestination, pPieceToMove)){
+        if(isMoveAvailable(pCoordinatesDestination, pPieceToMove)){
             return stateMachine.MOVE;
+        }else {
+            interactions.displayMoveNotAllowed();
+            return stateMachine.GETMOVE;
         }
-        return stateMachine.GETMOVE;
+
     }
     private TurnState movePiece(Piece pPiece, int[] pCoordinates){
         pPiece.setXCor(pCoordinates[0]);
