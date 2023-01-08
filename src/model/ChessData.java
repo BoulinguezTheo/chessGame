@@ -14,7 +14,7 @@ public class ChessData {
     public ChessData(){
         this.cells = setupBoard();
         this.pieceList = setupPiece();
-        this.activePlayer = setActivePlayer();
+        this.activePlayer = Factory.createActivePlayer();
     }
     private Cell[][] setupBoard(){
         this.cells = new Cell[this.boardSize][this.boardSize];
@@ -75,14 +75,14 @@ public class ChessData {
     /*
      * GETTER AND SETTER SECTION
      **/
-    public void setPlayer1(String pName){
-        this.player1 = Factory.createPlayer(pName);
+    public void setPlayer1(String pName, String pColor){
+        this.player1 = Factory.createPlayer(pName, pColor);
     }
-    public void setPlayer2(String pName){
-        this.player2 = Factory.createPlayer(pName);
+    public void setPlayer2(String pName, String pColor){
+        this.player2 = Factory.createPlayer(pName, pColor);
     }
-    public Player setActivePlayer(){
-        return this.activePlayer == this.player1 ? this.player2 : this.player1;
+    public void setActivePlayer(){
+        this.activePlayer = (this.activePlayer == this.player1) ? this.player2 : this.player1;
     }
     public Player getPlayer1() {
         return player1;
@@ -98,6 +98,16 @@ public class ChessData {
     }
     public Cell[][] getCells() {
         return cells;
+    }
+    public Piece getPiece(int[] pCoordinates){
+        int xCor = pCoordinates[0];
+        int yCor = pCoordinates[1];
+        for(Piece piece : pieceList){
+            if(piece.getXCor() == xCor && piece.getYCor() == yCor){
+                return piece;
+            }
+        }
+        return null;
     }
 
 }
