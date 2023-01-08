@@ -22,8 +22,10 @@ public class DisplayEn{
     public void displayBoard(Player player1, Player player2){
         System.out.println();
         System.out.println("                  " + player1.getName());
-        System.out.println("-----------------------------------------");
+        System.out.println("    a    b    c    d    e    f    g    h");
+        System.out.println("  ----------------------------------------");
         for(int i = 0; i < board.getBoardSize(); i++){
+            System.out.print(i + 1 );
             for (int j = 0; j < board.getBoardSize(); j++){
 
                 System.out.print(this.board.getCells()[i][j].getCellLeft());
@@ -31,7 +33,7 @@ public class DisplayEn{
                 System.out.print(this.board.getCells()[i][j].getCellRight());
             }
             System.out.println("|");
-            System.out.println("-----------------------------------------");
+            System.out.println("  ---------------------------------------");
         }
         System.out.println("                  " + player2.getName());
         System.out.println();

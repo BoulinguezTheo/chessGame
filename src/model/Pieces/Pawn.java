@@ -41,14 +41,24 @@ public class Pawn extends Piece {
             availableMoves.add(new int[]{xCor + sign, yCor + 1});
         }
         //move to eat to the right
-        int[] eatPiece2 = {xCor + sign, yCor - 1};
-        if (!pBoard.getCells()[eatPiece2[0]][eatPiece2[1]].getCellContent().equals(" ")) {
-            availableMoves.add(new int[]{xCor + sign, yCor - 1});
+        try {
+            int[] eatPiece2 = {xCor + sign, yCor - 1};
+            if (!pBoard.getCells()[eatPiece2[0]][eatPiece2[1]].getCellContent().equals(" ")) {
+                availableMoves.add(new int[]{xCor + sign, yCor - 1});
+            }
+            //First move of this pawn only
+        } catch(ArrayIndexOutOfBoundsException e){
+            //For pawns on the extremities moves generating can be out of board, we want to skip that exception if it happens
         }
-        //First move of this pawn only
-        if(xCor == initXCor && yCor == initYCor){
-            availableMoves.add(new int[] {xCor + 2*sign, yCor});
+
+        try {
+            if (xCor == initXCor && yCor == initYCor) {
+                availableMoves.add(new int[]{xCor + 2 * sign, yCor});
+            }
+        } catch(ArrayIndexOutOfBoundsException e){
+            //For pawns on the extremities moves generating can be out of board, we want to skip that exception if it happens
         }
+
         return availableMoves;
     }
 

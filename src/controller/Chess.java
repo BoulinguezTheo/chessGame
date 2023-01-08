@@ -109,8 +109,8 @@ public class Chess {
                 pieceToMove = this.interactions.getInputCoordinates().toLowerCase();
             }
             columnInput = (pieceToMove.charAt(0)) - 97;
-            lineInput = Integer.parseInt(String.valueOf(pieceToMove.charAt(1))) - 1;
-
+            lineInput = (pieceToMove.charAt(1)) - 49;
+            System.out.println(lineInput);
             if (columnInput >= 0 && columnInput <= 7 && lineInput >= 0 && lineInput <= 7){
                 validInput = true;
             } else {
