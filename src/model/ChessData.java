@@ -11,9 +11,6 @@ public class ChessData {
     Player player1;
     Player player2;
     Player activePlayer;
-
-
-
     ArrayList<Piece> pieceList;
     Cell cells[][];
     public ChessData(){

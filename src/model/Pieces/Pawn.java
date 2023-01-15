@@ -4,6 +4,8 @@ import model.ChessData;
 import model.Piece;
 
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 public class Pawn extends Piece {
     private int initXCor;
@@ -43,7 +45,7 @@ public class Pawn extends Piece {
         int[] eatPiece2 = {xCor + sign, yCor - 1};
         eatMove(eatPiece2, pBoard, availableMoves);
 
-        if (xCor == initXCor && yCor == initYCor) {
+        if (xCor == initXCor && yCor == initYCor && pBoard.getCells()[xCor + (2 * sign)][yCor].getCellContent().equals(" ")) {
             availableMoves.add(new int[]{xCor + 2 * sign, yCor});
         }
 
@@ -51,11 +53,20 @@ public class Pawn extends Piece {
     }
 
     public void eatMove(int[] eatPiece, ChessData pBoard, ArrayList<int[]> pAvailableMoves){
-        if(eatPiece[0] >= 0 && eatPiece[0] >= 7 && eatPiece[1] >= 0 && eatPiece[1] >= 7) {
-            if (!pBoard.getCells()[eatPiece[0]][eatPiece[1]].getCellContent().equals(" ")) {
-                pAvailableMoves.add(new int[]{xCor + sign, yCor + sign});
+        if(eatPiece[0] >= 0 && eatPiece[0] <= 7 && eatPiece[1] >= 0 && eatPiece[1] <= 7 && !pBoard.getCells()[eatPiece[0]][eatPiece[1]].getCellContent().equals(" ")) {
+            Piece pieceToEat = pBoard.getPiece(eatPiece);
+            if(!super.color.equals(pieceToEat.getColor())){
+                pAvailableMoves.add(new int[]{eatPiece[0], eatPiece[1]});
             }
         }
+            //Optional<Piece> pieceToEat =
+                    //pBoard.getPieceList().stream()
+                                         //.filter(p -> p.getXCor() == eatPiece[0] && p.getYCor() == eatPiece[1])
+                                         //.findAny();
+
+            //if (!pBoard.getCells()[eatPiece[0]][eatPiece[1]].getCellContent().equals(" ")) {
+                //pAvailableMoves.add(new int[]{eatPiece[0], eatPiece[1]});
+            //}
     }
 
     

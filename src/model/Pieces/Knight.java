@@ -15,6 +15,42 @@ public class Knight extends Piece {
 
     @Override
     public ArrayList<int[]> getMovesPossible(ChessData pBoard){
-        return new ArrayList<int[]>();
+        ArrayList<int[]> availablesMoves = new ArrayList<>();
+        int[] firstMove = {(xCor + 2), (yCor - 1)};
+        addMove(firstMove, pBoard, availablesMoves);
+
+        int[] secondMove = {(xCor + 2), (yCor + 1)};
+        addMove(secondMove, pBoard, availablesMoves);
+
+        int[] thirdMove = {(xCor - 2), (yCor - 1)};
+        addMove(thirdMove, pBoard, availablesMoves);
+
+        int[] fourthMove = {(xCor - 2), (yCor + 1)};
+        addMove(fourthMove, pBoard, availablesMoves);
+
+        int[] fifthMove = {(xCor + 1), (yCor - 2)};
+        addMove(fifthMove, pBoard, availablesMoves);
+
+        int[] sixthMove = {(xCor - 1), (yCor - 2)};
+        addMove(sixthMove, pBoard, availablesMoves);
+
+        int[] seventhMove = {(xCor + 1), (yCor + 2)};
+        addMove(seventhMove, pBoard, availablesMoves);
+
+        int[] eightMove = {(xCor - 1), (yCor + 2)};
+        addMove(eightMove, pBoard, availablesMoves);
+
+        return availablesMoves;
+    }
+
+    private void addMove(int[] pMove, ChessData pBoard, ArrayList<int[]> pAvailableMoves){
+        Piece pieceToEat = pBoard.getPiece(pMove);
+        if(pMove[0] >= 0 && pMove[0] <= 7 && pMove[1] >= 0 && pMove[1] <= 7){
+            if(pBoard.getCells()[pMove[0]][pMove[1]].getCellContent().equals(" ")){
+                pAvailableMoves.add(pMove);
+            } else if(!pBoard.getCells()[pMove[0]][pMove[1]].getCellContent().equals(" ") && !super.color.equals(pieceToEat.getColor())){
+                pAvailableMoves.add(pMove);
+            }
+        }
     }
 }
