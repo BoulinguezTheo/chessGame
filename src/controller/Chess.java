@@ -2,8 +2,8 @@ package controller;
 
 import model.ChessData;
 import model.Piece;
-import view.DisplayEn;
 import java.util.ArrayList;
+import view.DisplayEn;
 
 
 

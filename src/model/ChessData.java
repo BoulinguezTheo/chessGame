@@ -1,6 +1,8 @@
 package model;
-import factory.Factory;
 import model.Pieces.Pawn;
+
+
+import factory.Factory;
 
 import java.util.ArrayList;
 
