@@ -17,81 +17,42 @@ public class Bishop extends Piece {
     @Override
     public ArrayList<int[]> getMovesPossible(ChessData pBoard){
         ArrayList<int[]> movesAvailable = new ArrayList<>();
-        int newXCor1 = super.xCor + 1;
-        int newYCor1 = super.yCor + 1;
-        //
-        while(newXCor1 >= 0 && newXCor1 <= 7 && newYCor1 >= 0 && newYCor1 <= 7){
-            if(pBoard.getCells()[newXCor1][newYCor1].getCellContent().equals(" ")){
-                movesAvailable.add(new int[]{newXCor1, newYCor1});
-            } else {
-                Piece encounteredPiece = pBoard.getPiece(new int[] {newXCor1, newYCor1});
-                if(encounteredPiece != null && !super.color.equals(encounteredPiece.getColor())){
-                    movesAvailable.add(new int[]{newXCor1, newYCor1});
-                    break;
-                } else {
-                    break;
-                }
-            }
-            newXCor1++;
-            newYCor1++;
-        }
-        //
-        int newXCor2 = super.xCor + 1;
-        int newYCor2 = super.yCor -1;
-        while(newXCor2 >= 0 && newXCor2 <= 7 && newYCor2 >= 0 && newYCor2 <= 7){
-            if(pBoard.getCells()[newXCor2][newYCor2].getCellContent().equals(" ")){
-                movesAvailable.add(new int[]{newXCor2, newYCor2});
-            } else {
-                Piece encounteredPiece = pBoard.getPiece(new int[] {newXCor2, newYCor2});
-                if(encounteredPiece != null && !super.color.equals(encounteredPiece.getColor())){
-                    movesAvailable.add(new int[]{newXCor2, newYCor2});
-                    break;
-                } else {
-                    break;
-                }
-            }
-            newXCor2++;
-            newYCor2--;
-        }
-        //
-        int newXCor3 = super.xCor - 1;
-        int newYCor3 = super.yCor + 1;
-        while(newXCor3 >= 0 && newXCor3 <= 7 && newYCor3 >= 0 && newYCor3 <= 7){
+        int xIncrementation1 = 1;
+        int yIncrementation1 = 1;
+        bishopMoves(pBoard, movesAvailable, xIncrementation1, yIncrementation1);
 
-            if(pBoard.getCells()[newXCor3][newYCor3].getCellContent().equals(" ")){
-                movesAvailable.add(new int[]{newXCor3, newYCor3});
-            } else {
-                Piece encounteredPiece = pBoard.getPiece(new int[] {newXCor3, newYCor3});
-                if(encounteredPiece != null && !super.color.equals(encounteredPiece.getColor())){
-                    movesAvailable.add(new int[]{newXCor3, newYCor3});
-                    break;
-                } else {
-                    break;
-                }
-            }
-            newXCor3--;
-            newYCor3++;
-        }
-        //
-        int newXCor4 = super.xCor - 1;
-        int newYCor4 = super.yCor -1;
-        while(newXCor4 >= 0 && newXCor4 <= 7 && newYCor4 >= 0 && newYCor4 <= 7){
+        int xIncrementation2 = 1;
+        int yIncrementation2 = -1;
+        bishopMoves(pBoard, movesAvailable, xIncrementation2, yIncrementation2);
 
-            if(pBoard.getCells()[newXCor4][newYCor4].getCellContent().equals(" ")){
-                movesAvailable.add(new int[]{newXCor4, newYCor4});
-            } else {
-                Piece encounteredPiece = pBoard.getPiece(new int[] {newXCor4, newYCor4});
-                if(encounteredPiece != null && !super.color.equals(encounteredPiece.getColor())){
-                    movesAvailable.add(new int[]{newXCor4, newYCor4});
-                    break;
-                } else {
-                    break;
-                }
-            }
-            newXCor4--;
-            newYCor4--;
-        }
+        int xIncrementation3 = -1;
+        int yIncrementation3 = 1;
+        bishopMoves(pBoard, movesAvailable, xIncrementation3, yIncrementation3);
+
+        int xIncrementation4 = -1;
+        int yIncrementation4 = -1;
+        bishopMoves(pBoard, movesAvailable, xIncrementation4, yIncrementation4);
 
         return movesAvailable;
+    }
+
+    private void bishopMoves(ChessData pBoard, ArrayList<int[]> pMovesAvailable, int pXIncrementation, int pYIncrementation){
+        int newXCor = super.xCor + pXIncrementation;
+        int newYCor = super.yCor + pYIncrementation;
+        while(newXCor >= 0 && newXCor <= 7 && newYCor >= 0 && newYCor <= 7){
+            if(pBoard.getCells()[newXCor][newYCor].getCellContent().equals(" ")){
+                pMovesAvailable.add(new int[]{newXCor, newYCor});
+            } else {
+                Piece encounteredPiece = pBoard.getPiece(new int[] {newXCor, newYCor});
+                if(encounteredPiece != null && !super.color.equals(encounteredPiece.getColor())){
+                    pMovesAvailable.add(new int[]{newXCor, newYCor});
+                    break;
+                } else {
+                    break;
+                }
+            }
+            newXCor += pXIncrementation;
+            newYCor += pYIncrementation;
+        }
     }
 }
