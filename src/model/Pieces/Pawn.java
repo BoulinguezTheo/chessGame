@@ -54,10 +54,9 @@ public class Pawn extends Piece {
 
     public void eatMove(int[] eatPiece, ChessData pBoard, ArrayList<int[]> pAvailableMoves) {
         if (eatPiece[0] >= 0 && eatPiece[0] <= 7 && eatPiece[1] >= 0 && eatPiece[1] <= 7 && !pBoard.getCells()[eatPiece[0]][eatPiece[1]].getCellContent().equals(" ")) {
-            //Piece pieceToEat = pBoard.getPiece(eatPiece);
-            Piece pieceToEat2 = pBoard.getPiece(eatPiece);
+            Piece pieceToEat = pBoard.getPiece(eatPiece);
 
-            if (pieceToEat2 != null && !super.color.equals(pieceToEat2.getColor())) {
+            if (pieceToEat != null && !super.color.equals(pieceToEat.getColor())) {
                 pAvailableMoves.add(new int[]{eatPiece[0], eatPiece[1]});
             }
         }
