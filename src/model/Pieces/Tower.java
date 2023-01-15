@@ -31,7 +31,7 @@ public class Tower extends Piece {
         //4
         int yIncrementation3 = -1;
         towerMoves(pBoard, movesAvailable, xIncrementation3, yIncrementation3);
-        
+
         return movesAvailable;
     }
 
