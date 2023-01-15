@@ -102,14 +102,9 @@ public class ChessData {
         return cells;
     }
     public Piece getPiece(int[] pCoordinates){
-        int xCor = pCoordinates[0];
-        int yCor = pCoordinates[1];
-        for(Piece piece : pieceList){
-            if(piece.getXCor() == xCor && piece.getYCor() == yCor){
-                return piece;
-            }
-        }
-        return null;
+        return getPieceList().stream()
+                .filter(p -> p.getXCor() == pCoordinates[0] && p.getYCor() == pCoordinates[1])
+                .findFirst().orElse(null);
     }
     public ArrayList<Piece> getPieceList() {
         return pieceList;
