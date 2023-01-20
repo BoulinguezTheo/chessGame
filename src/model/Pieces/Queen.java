@@ -16,32 +16,22 @@ public class Queen extends Piece {
     public ArrayList<int[]> getMovesPossible(ChessData pBoard){
         ArrayList<int[]> movesAvailable = new ArrayList<>();
         int xIncrementation1 = 1;
-        int yIncrementation1 = 1;
-        bishopTypeMoves(pBoard, movesAvailable, xIncrementation1, yIncrementation1);
+        int xIncrementation2 = -1;
+        int xIncrementation3 = 0;
 
-        int xIncrementation2 = 1;
+        int yIncrementation1 = 1;
         int yIncrementation2 = -1;
+        int yIncrementation3 = 0;
+
+        bishopTypeMoves(pBoard, movesAvailable, xIncrementation1, yIncrementation1);
+        bishopTypeMoves(pBoard, movesAvailable, xIncrementation1, yIncrementation2);
+        bishopTypeMoves(pBoard, movesAvailable, xIncrementation2, yIncrementation1);
         bishopTypeMoves(pBoard, movesAvailable, xIncrementation2, yIncrementation2);
 
-        int xIncrementation3 = -1;
-        int yIncrementation3 = 1;
-        bishopTypeMoves(pBoard, movesAvailable, xIncrementation3, yIncrementation3);
-
-        int xIncrementation4 = -1;
-        int yIncrementation4 = -1;
-        bishopTypeMoves(pBoard, movesAvailable, xIncrementation4, yIncrementation4);
-        //
-
-
-        int yIncrementation5 = 0;
-        towerTypeMoves(pBoard, movesAvailable, xIncrementation1, yIncrementation5);
-        //2
-        towerTypeMoves(pBoard, movesAvailable, xIncrementation3, yIncrementation5);
-        //3
-        int xIncrementation5 = 0;
-        towerTypeMoves(pBoard, movesAvailable, xIncrementation5, yIncrementation1);
-        //4
-        towerTypeMoves(pBoard, movesAvailable, xIncrementation5, yIncrementation2);
+        towerTypeMoves(pBoard, movesAvailable, xIncrementation1, yIncrementation3);
+        towerTypeMoves(pBoard, movesAvailable, xIncrementation2, yIncrementation3);
+        towerTypeMoves(pBoard, movesAvailable, xIncrementation3, yIncrementation1);
+        towerTypeMoves(pBoard, movesAvailable, xIncrementation3, yIncrementation2);
 
         return movesAvailable;
     }
