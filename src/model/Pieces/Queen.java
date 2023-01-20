@@ -14,6 +14,74 @@ public class Queen extends Piece {
     }
     @Override
     public ArrayList<int[]> getMovesPossible(ChessData pBoard){
-        return new ArrayList<int[]>();
+        ArrayList<int[]> movesAvailable = new ArrayList<>();
+        int xIncrementation1 = 1;
+        int yIncrementation1 = 1;
+        bishopTypeMoves(pBoard, movesAvailable, xIncrementation1, yIncrementation1);
+
+        int xIncrementation2 = 1;
+        int yIncrementation2 = -1;
+        bishopTypeMoves(pBoard, movesAvailable, xIncrementation2, yIncrementation2);
+
+        int xIncrementation3 = -1;
+        int yIncrementation3 = 1;
+        bishopTypeMoves(pBoard, movesAvailable, xIncrementation3, yIncrementation3);
+
+        int xIncrementation4 = -1;
+        int yIncrementation4 = -1;
+        bishopTypeMoves(pBoard, movesAvailable, xIncrementation4, yIncrementation4);
+        //
+
+
+        int yIncrementation5 = 0;
+        towerTypeMoves(pBoard, movesAvailable, xIncrementation1, yIncrementation5);
+        //2
+        towerTypeMoves(pBoard, movesAvailable, xIncrementation3, yIncrementation5);
+        //3
+        int xIncrementation5 = 0;
+        towerTypeMoves(pBoard, movesAvailable, xIncrementation5, yIncrementation1);
+        //4
+        towerTypeMoves(pBoard, movesAvailable, xIncrementation5, yIncrementation2);
+
+        return movesAvailable;
+    }
+
+    private void bishopTypeMoves(ChessData pBoard, ArrayList<int[]> pMovesAvailable, int pXIncrementation, int pYIncrementation) {
+        int newXCor = super.xCor + pXIncrementation;
+        int newYCor = super.yCor + pYIncrementation;
+        while(newXCor >= 0 && newXCor <= 7 && newYCor >= 0 && newYCor <= 7){
+            if(pBoard.getCells()[newXCor][newYCor].getCellContent().equals(" ")){
+                pMovesAvailable.add(new int[]{newXCor, newYCor});
+            } else {
+                Piece encounteredPiece = pBoard.getPiece(new int[] {newXCor, newYCor});
+                if(encounteredPiece != null && !super.color.equals(encounteredPiece.getColor())){
+                    pMovesAvailable.add(new int[]{newXCor, newYCor});
+                    break;
+                } else {
+                    break;
+                }
+            }
+            newXCor += pXIncrementation;
+            newYCor += pYIncrementation;
+        }
+    }
+    private void towerTypeMoves(ChessData pBoard, ArrayList<int[]> pMovesAvailable, int pXIncrementation, int pYIncrementation){
+        int newXCor = super.xCor + pXIncrementation;
+        int newYCor = super.yCor + pYIncrementation;
+        while(newXCor >= 0 && newXCor <= 7 && newYCor >= 0 && newYCor <= 7){
+            if(pBoard.getCells()[newXCor][newYCor].getCellContent().equals(" ")){
+                pMovesAvailable.add(new int[]{newXCor, newYCor});
+            } else {
+                Piece encounteredPiece = pBoard.getPiece(new int[] {newXCor, newYCor});
+                if(encounteredPiece != null && !super.color.equals(encounteredPiece.getColor())){
+                    pMovesAvailable.add(new int[]{newXCor, newYCor});
+                    break;
+                } else {
+                    break;
+                }
+            }
+            newXCor += pXIncrementation;
+            newYCor += pYIncrementation;
+        }
     }
 }
