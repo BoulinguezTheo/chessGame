@@ -50,11 +50,11 @@ public class Knight extends Piece {
 
     private void addMove(int[] pMove, ChessData pBoard, ArrayList<int[]> pAvailableMoves){
 
-        if(pMove[0] >= 0 && pMove[0] <= 7 && pMove[1] >= 0 && pMove[1] <= 7){
+        if(pMove[xIndex] >= 0 && pMove[xIndex] <= 7 && pMove[yIndex] >= 0 && pMove[yIndex] <= 7){
             Piece pieceToEat = pBoard.getPiece(pMove);
-            if(pBoard.getCells()[pMove[0]][pMove[1]].getCellContent().equals(" ")){
+            if(pBoard.getCells()[pMove[xIndex]][pMove[yIndex]].getCellContent().equals(" ")){
                 pAvailableMoves.add(pMove);
-            } else if(!pBoard.getCells()[pMove[0]][pMove[1]].getCellContent().equals(" ") && !super.color.equals(pieceToEat.getColor())){
+            } else if(!pBoard.getCells()[pMove[xIndex]][pMove[yIndex]].getCellContent().equals(" ") && !super.color.equals(pieceToEat.getColor())){
                 pAvailableMoves.add(pMove);
             }
         }

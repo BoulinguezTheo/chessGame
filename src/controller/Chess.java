@@ -11,7 +11,10 @@ public class Chess {
     DisplayEn interactions;
     ChessData board;
     private TurnState stateMachine;
-
+    private final static int xIndex = 0;
+    private final static int yIndex = 1;
+private final static int asciiA = 97;
+    private final static int ascii1 = 49;
 
     public Chess(){
         // Setup Objects needed
@@ -53,7 +56,6 @@ public class Chess {
                     movePiece(pieceToMove, coordinatesDestination);
                     this.board.getCells()[coordinatesDestination[0]][coordinatesDestination[1]].setCellContent(pieceToMove.getRepresentation(), pieceToMove.getColor());
                     this.board.setActivePlayer();
-
                     stateMachine = isCheck(pieceToMove) ? TurnState.CHECK : TurnState.STARTTURN;
                     break;
                 case REMOVEPIECE:
@@ -83,8 +85,8 @@ public class Chess {
 
         ArrayList<int[]> pieceToMoveNextMove = pPieceToMove.getMovesPossible(board);
         for (int[] nextMove : pieceToMoveNextMove){
-            int nextX = nextMove[0];
-            int nextY = nextMove[1];
+            int nextX = nextMove[xIndex];
+            int nextY = nextMove[yIndex];
             if (nextX == xKing && nextY == yKing){
                 return true;
             }
@@ -93,7 +95,7 @@ public class Chess {
     }
 
     private TurnState moveType(int[] pCoordinates){
-        if(!board.getCells()[pCoordinates[0]][pCoordinates[1]].getCellContent().equals(" ")){
+        if(!board.getCells()[pCoordinates[xIndex]][pCoordinates[yIndex]].getCellContent().equals(" ")){
             return TurnState.REMOVEPIECE;
         } else {
             return TurnState.SETNEWCOORDINATES;
@@ -136,8 +138,8 @@ public class Chess {
                 interactions.displayEnterCoordinates();
                 pieceToMove = this.interactions.getInputCoordinates().toLowerCase();
             }
-            columnInput = (pieceToMove.charAt(0)) - 97;
-            lineInput = (pieceToMove.charAt(1)) - 49;
+            columnInput = (pieceToMove.charAt(0)) - asciiA;
+            lineInput = (pieceToMove.charAt(1)) - ascii1;
             System.out.println(lineInput);
             if (columnInput >= 0 && columnInput <= 7 && lineInput >= 0 && lineInput <= 7){
                 validInput = true;
@@ -153,7 +155,7 @@ public class Chess {
     private boolean isMoveAvailable(int[] pCoordinates, Piece pPieceToMove){
         ArrayList<int[]> movesPossible = pPieceToMove.getMovesPossible(board);
         for(int[] move : movesPossible){
-            if(move[0] == pCoordinates[0] && move[1] == pCoordinates[1]){
+            if(move[xIndex] == pCoordinates[xIndex] && move[yIndex] == pCoordinates[yIndex]){
                 return true;
             }
         }
@@ -169,8 +171,8 @@ public class Chess {
 
     }
     private TurnState movePiece(Piece pPiece, int[] pCoordinates){
-        pPiece.setXCor(pCoordinates[0]);
-        pPiece.setYCor(pCoordinates[1]);
+        pPiece.setXCor(pCoordinates[xIndex]);
+        pPiece.setYCor(pCoordinates[yIndex]);
         return TurnState.MOVE;
     }
 

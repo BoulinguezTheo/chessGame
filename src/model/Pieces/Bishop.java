@@ -18,20 +18,13 @@ public class Bishop extends Piece {
     public ArrayList<int[]> getMovesPossible(ChessData pBoard){
         ArrayList<int[]> movesAvailable = new ArrayList<>();
         int xIncrementation1 = 1;
+        int xIncrementation2 = -1;
         int yIncrementation1 = 1;
-        bishopMoves(pBoard, movesAvailable, xIncrementation1, yIncrementation1);
-
-        int xIncrementation2 = 1;
         int yIncrementation2 = -1;
+        bishopMoves(pBoard, movesAvailable, xIncrementation1, yIncrementation1);
+        bishopMoves(pBoard, movesAvailable, xIncrementation1, yIncrementation2);
+        bishopMoves(pBoard, movesAvailable, xIncrementation2, yIncrementation1);
         bishopMoves(pBoard, movesAvailable, xIncrementation2, yIncrementation2);
-
-        int xIncrementation3 = -1;
-        int yIncrementation3 = 1;
-        bishopMoves(pBoard, movesAvailable, xIncrementation3, yIncrementation3);
-
-        int xIncrementation4 = -1;
-        int yIncrementation4 = -1;
-        bishopMoves(pBoard, movesAvailable, xIncrementation4, yIncrementation4);
 
         return movesAvailable;
     }

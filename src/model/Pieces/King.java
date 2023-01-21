@@ -60,12 +60,12 @@ public class King extends Piece {
         ArrayList<int[]> movesToRemove = new ArrayList<>();
         for(int i = 0; i < copyMovesAvailable.size(); i++){
             int[] kingMove = copyMovesAvailable.get(i);
-            int xKing = kingMove[0];
-            int yKing = kingMove[1];
+            int xKing = kingMove[xIndex];
+            int yKing = kingMove[yIndex];
 
             for(int[] move : otherPiecesMoves){
-                int xPiece = move[0];
-                int yPiece = move[1];
+                int xPiece = move[xIndex];
+                int yPiece = move[yIndex];
 
                 if(xKing == xPiece && yKing == yPiece){
                     copyMovesAvailable.remove(i);
@@ -73,10 +73,7 @@ public class King extends Piece {
                 }
             }
         }
-
         copyMovesAvailable.removeAll(movesToRemove);
-
-
         return copyMovesAvailable;
     }
 

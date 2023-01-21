@@ -17,19 +17,16 @@ public class Tower extends Piece {
     @Override
     public ArrayList<int[]> getMovesPossible(ChessData pBoard){
         ArrayList<int[]> movesAvailable = new ArrayList<>();
-        //1
         int xIncrementation1 = 1;
-        int yIncrementation1 = 0;
-        towerMoves(pBoard, movesAvailable, xIncrementation1, yIncrementation1);
-        //2
         int xIncrementation2 = -1;
-        towerMoves(pBoard, movesAvailable, xIncrementation2, yIncrementation1);
-        //3
         int xIncrementation3 = 0;
+        int yIncrementation1 = 0;
         int yIncrementation2 = 1;
-        towerMoves(pBoard, movesAvailable, xIncrementation3, yIncrementation2);
-        //4
         int yIncrementation3 = -1;
+
+        towerMoves(pBoard, movesAvailable, xIncrementation1, yIncrementation1);
+        towerMoves(pBoard, movesAvailable, xIncrementation2, yIncrementation1);
+        towerMoves(pBoard, movesAvailable, xIncrementation3, yIncrementation2);
         towerMoves(pBoard, movesAvailable, xIncrementation3, yIncrementation3);
 
         return movesAvailable;
