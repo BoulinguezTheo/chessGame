@@ -67,5 +67,8 @@ public class DisplayEn{
     public void displayMoveNotAllowed(){
         System.out.println("This move is not allowed, please try again.");
     }
+    public void displayCheckState(){
+        System.out.println("Your king is in a check state, protect it!");
+    }
 
 }

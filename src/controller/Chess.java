@@ -43,7 +43,7 @@ public class Chess {
                     interactions.displayAskMoveTo();
                     interactions.displayEnterCoordinates();
                     coordinatesDestination = getCoordinates();
-                    stateMachine = correctMove(coordinatesDestination, pieceToMove);
+                    stateMachine = correctMove(coordinatesDestination, pieceToMove) ? TurnState.MOVE : TurnState.GETMOVE;
                     break;
                 case MOVE:
                     stateMachine = moveType(coordinatesDestination);
@@ -53,15 +53,43 @@ public class Chess {
                     movePiece(pieceToMove, coordinatesDestination);
                     this.board.getCells()[coordinatesDestination[0]][coordinatesDestination[1]].setCellContent(pieceToMove.getRepresentation(), pieceToMove.getColor());
                     this.board.setActivePlayer();
-                    stateMachine = TurnState.STARTTURN;
+
+                    stateMachine = isCheck(pieceToMove) ? TurnState.CHECK : TurnState.STARTTURN;
                     break;
                 case REMOVEPIECE:
                     board.getPieceList().remove(board.getPiece(coordinatesDestination));
                     stateMachine = TurnState.SETNEWCOORDINATES;
                     break;
+                case CHECK:
+                    this.interactions.displayBoard(this.board.getPlayer1(), this.board.getPlayer2());
+                    interactions.displayPlayerTurn();
+                    interactions.displayCheckState();
+                    pieceToMove = getPieceToMove();
+                    interactions.displayAskMoveTo();
+                    interactions.displayEnterCoordinates();
+                    coordinatesDestination = getCoordinates();
+                    if (correctMove(coordinatesDestination, pieceToMove) && !isCheck(pieceToMove)){
+                        stateMachine = TurnState.MOVE;
+                    }
+
+                    break;
             }
         }
+    }
+    private boolean isCheck(Piece pPieceToMove){
+        Piece adversaryKing = board.getPieceByRepresentation("K");
+        int xKing = adversaryKing.getXCor();
+        int yKing = adversaryKing.getYCor();
 
+        ArrayList<int[]> pieceToMoveNextMove = pPieceToMove.getMovesPossible(board);
+        for (int[] nextMove : pieceToMoveNextMove){
+            int nextX = nextMove[0];
+            int nextY = nextMove[1];
+            if (nextX == xKing && nextY == yKing){
+                return true;
+            }
+        }
+        return false;
     }
 
     private TurnState moveType(int[] pCoordinates){
@@ -131,12 +159,12 @@ public class Chess {
         }
         return false;
     }
-    private TurnState correctMove(int[] pCoordinatesDestination, Piece pPieceToMove){
+    private boolean correctMove(int[] pCoordinatesDestination, Piece pPieceToMove){
         if(isMoveAvailable(pCoordinatesDestination, pPieceToMove)){
-            return stateMachine.MOVE;
+            return true;
         }else {
             interactions.displayMoveNotAllowed();
-            return stateMachine.GETMOVE;
+            return false;
         }
 
     }
