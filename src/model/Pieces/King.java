@@ -3,10 +3,7 @@ package model.Pieces;
 import model.ChessData;
 import model.Piece;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class King extends Piece {
     
@@ -48,27 +45,21 @@ public class King extends Piece {
     }
 
     private ArrayList<int[]> removeCheckPosition(ChessData pBoard, ArrayList<int[]> pMovesAvailable) {
+        ArrayList<int[]> copyMovesAvailable = pMovesAvailable;
         ArrayList<Piece> pieceList = pBoard.getPieceList();
         Set<int[]> otherPiecesMoves = new LinkedHashSet<>();
-        int i = 0;
-        //for (Piece piece : pieceList) {
-          //  i++;
-          //  if (!piece.getColor().equals(color)) {
-            //    otherPiecesMoves.addAll(piece.getMovesPossible(pBoard));
-            //}
-        //}
-        for (int j = 0; j < pieceList.size(); j ++){
-                Piece piece = pieceList.get(j);
-                if(piece.getRepresentation().equals(representation) && !piece.getColor().equals(color)){
-                    otherPiecesMoves.addAll(piece.generateMoves(pBoard));
-                } else if (!piece.getColor().equals(color)) {
-                    otherPiecesMoves.addAll(piece.getMovesPossible(pBoard));
-                }
+
+        for(Piece piece : pieceList){
+            if(piece.getRepresentation().equals(representation) && !piece.getColor().equals(color)){
+                otherPiecesMoves.addAll(piece.generateMoves(pBoard));
+            } else if (!piece.getColor().equals(color)) {
+                otherPiecesMoves.addAll(piece.getMovesPossible(pBoard));
+            }
         }
 
-        //ArrayList<int[]> combinedList = new ArrayList<>(otherPiecesMoves);
         ArrayList<int[]> movesToRemove = new ArrayList<>();
-        for (int[] kingMove : pMovesAvailable){
+        for(int i = 0; i < copyMovesAvailable.size(); i++){
+            int[] kingMove = copyMovesAvailable.get(i);
             int xKing = kingMove[0];
             int yKing = kingMove[1];
 
@@ -77,12 +68,16 @@ public class King extends Piece {
                 int yPiece = move[1];
 
                 if(xKing == xPiece && yKing == yPiece){
-                    movesToRemove.add(move);
+                    copyMovesAvailable.remove(i);
+                    i--;
                 }
             }
         }
-        otherPiecesMoves.removeAll(movesToRemove);
-        return new ArrayList<int[]>(otherPiecesMoves) ;
+
+        copyMovesAvailable.removeAll(movesToRemove);
+
+
+        return copyMovesAvailable;
     }
 
     private void bishopTypeMoves(ChessData pBoard, ArrayList<int[]> pMovesAvailable, int pXIncrementation, int pYIncrementation) {
