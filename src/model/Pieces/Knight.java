@@ -43,6 +43,11 @@ public class Knight extends Piece {
         return availablesMoves;
     }
 
+    @Override
+    public ArrayList<int[]> generateMoves(ChessData pBoard) {
+        return null;
+    }
+
     private void addMove(int[] pMove, ChessData pBoard, ArrayList<int[]> pAvailableMoves){
 
         if(pMove[0] >= 0 && pMove[0] <= 7 && pMove[1] >= 0 && pMove[1] <= 7){
