@@ -46,5 +46,4 @@ public abstract class Piece {
         setYCor(pCoordinates[0]);
         setXCor(pCoordinates[1]);
     }
-    public abstract ArrayList<int[]> generateMoves(ChessData pBoard);
 }

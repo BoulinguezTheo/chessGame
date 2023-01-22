@@ -54,10 +54,7 @@ public class Pawn extends Piece {
         return availableMoves;
     }
 
-    @Override
-    public ArrayList<int[]> generateMoves(ChessData pBoard) {
-        return null;
-    }
+
 
     public void eatMove(int[] eatPiece, ChessData pBoard, ArrayList<int[]> pAvailableMoves) {
         if (eatPiece[xIndex] >= 0 && eatPiece[xIndex] <= 7 && eatPiece[yIndex] >= 0 && eatPiece[yIndex] <= 7 && !pBoard.getCells()[eatPiece[xIndex]][eatPiece[yIndex]].getCellContent().equals(" ")) {

@@ -72,7 +72,7 @@ private final static int asciiA = 97;
                         interactions.displayEnterCoordinates();
                         coordinatesDestination = getCoordinates();
                         if (correctMove(coordinatesDestination, pieceToMove) && isCheck(pieceInforcingCheck, board.getActivePlayer().getColor().equals("n") ? "n" : "b")){
-                            stateMachine = TurnState.ENDCHECKSTATE;
+                            stateMachine = TurnState.MOVE;
                             isCheckCondition = false;
                         }
                     }
@@ -81,17 +81,13 @@ private final static int asciiA = 97;
                     stateMachine = isCheck(pieceToMove, board.getActivePlayer().getColor().equals("n") ? "b" : "n") ? TurnState.CHECK : TurnState.STARTTURN;
                     this.board.setActivePlayer();
                     break;
-                case ENDCHECKSTATE:
-                    this.board.setActivePlayer();
-                    stateMachine = TurnState.MOVE;
-                    break;
             }
         }
     }
     private boolean isCheck(Piece pPieceToMove, String color){
-        Piece adversaryKing = board.getAdversaryPieceByRepresentation("K", color);
-        int xKing = adversaryKing.getXCor();
-        int yKing = adversaryKing.getYCor();
+        Piece king = board.getPieceByRepresentation("K", color);
+        int xKing = king.getXCor();
+        int yKing = king.getYCor();
 
         ArrayList<int[]> pieceToMoveNextMove = pPieceToMove.getMovesPossible(board);
         for (int[] nextMove : pieceToMoveNextMove){
@@ -141,22 +137,17 @@ private final static int asciiA = 97;
         int columnInput;
         int lineInput;
         boolean validInput;
-            String pieceToMove = this.interactions.getInputCoordinates().toLowerCase();
+        String pieceToMoveCoordinates;
         do {
-            while(pieceToMove.length() != 2){
-                interactions.displayWrongInput();
-                interactions.displayEnterCoordinates();
-                pieceToMove = this.interactions.getInputCoordinates().toLowerCase();
-            }
-            columnInput = (pieceToMove.charAt(0)) - asciiA;
-            lineInput = (pieceToMove.charAt(1)) - ascii1;
-            if (columnInput >= 0 && columnInput <= 7 && lineInput >= 0 && lineInput <= 7){
+            pieceToMoveCoordinates = this.interactions.getInputCoordinates().toLowerCase();
+            columnInput = (pieceToMoveCoordinates.charAt(0)) - asciiA;
+            lineInput = (pieceToMoveCoordinates.charAt(1)) - ascii1;
+            if (columnInput >= 0 && columnInput <= 7 && lineInput >= 0 && lineInput <= 7 && pieceToMoveCoordinates.length() == 2){
                 validInput = true;
             } else {
                 validInput = false;
                 interactions.displayWrongInput();
                 interactions.displayEnterCoordinates();
-                pieceToMove = this.interactions.getInputCoordinates().toLowerCase();
             }
         } while(!validInput);
         return new int[] {lineInput, columnInput};

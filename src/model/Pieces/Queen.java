@@ -32,11 +32,6 @@ public class Queen extends Piece {
         return movesAvailable;
     }
 
-    @Override
-    public ArrayList<int[]> generateMoves(ChessData pBoard) {
-        return null;
-    }
-
     private void bishopTypeMoves(ChessData pBoard, ArrayList<int[]> pMovesAvailable, int pXIncrementation, int pYIncrementation) {
         int newXCor = super.xCor + pXIncrementation;
         int newYCor = super.yCor + pYIncrementation;
