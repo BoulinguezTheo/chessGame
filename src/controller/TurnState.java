@@ -9,5 +9,7 @@ public enum TurnState {
     CHECKMATE,
     REPLAY,
     STARTTURN,
+    ENDTURN,
+    ENDCHECKSTATE,
     END
 }

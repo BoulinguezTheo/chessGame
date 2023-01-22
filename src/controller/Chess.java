@@ -11,6 +11,7 @@ public class Chess {
     DisplayEn interactions;
     ChessData board;
     private TurnState stateMachine;
+    private Piece pieceInforcingCheck;
     private final static int xIndex = 0;
     private final static int yIndex = 1;
 private final static int asciiA = 97;
@@ -24,8 +25,6 @@ private final static int asciiA = 97;
         this.board.setPlayer1(interactions.askPlayerName("1"), "n");
         this.board.setPlayer2(interactions.askPlayerName("2"), "b");
         this.board.setActivePlayer();
-        //Setup Board
-
     }
 
     public void play(){
@@ -55,31 +54,42 @@ private final static int asciiA = 97;
                     this.board.getCells()[pieceToMove.getXCor()][pieceToMove.getYCor()].setCellContent(" ", " ");
                     movePiece(pieceToMove, coordinatesDestination);
                     this.board.getCells()[coordinatesDestination[0]][coordinatesDestination[1]].setCellContent(pieceToMove.getRepresentation(), pieceToMove.getColor());
-                    this.board.setActivePlayer();
-                    stateMachine = isCheck(pieceToMove) ? TurnState.CHECK : TurnState.STARTTURN;
+                    stateMachine = TurnState.ENDTURN;
                     break;
                 case REMOVEPIECE:
                     board.getPieceList().remove(board.getPiece(coordinatesDestination));
                     stateMachine = TurnState.SETNEWCOORDINATES;
                     break;
                 case CHECK:
-                    this.interactions.displayBoard(this.board.getPlayer1(), this.board.getPlayer2());
-                    interactions.displayPlayerTurn();
-                    interactions.displayCheckState();
-                    pieceToMove = getPieceToMove();
-                    interactions.displayAskMoveTo();
-                    interactions.displayEnterCoordinates();
-                    coordinatesDestination = getCoordinates();
-                    if (correctMove(coordinatesDestination, pieceToMove) && !isCheck(pieceToMove)){
-                        stateMachine = TurnState.MOVE;
+                    boolean isCheckCondition = true;
+                    pieceInforcingCheck = pieceToMove;
+                    while (isCheckCondition){
+                        this.interactions.displayBoard(this.board.getPlayer1(), this.board.getPlayer2());
+                        interactions.displayPlayerTurn();
+                        interactions.displayCheckState();
+                        pieceToMove = getPieceToMove();
+                        interactions.displayAskMoveTo();
+                        interactions.displayEnterCoordinates();
+                        coordinatesDestination = getCoordinates();
+                        if (correctMove(coordinatesDestination, pieceToMove) && isCheck(pieceInforcingCheck, board.getActivePlayer().getColor().equals("n") ? "n" : "b")){
+                            stateMachine = TurnState.ENDCHECKSTATE;
+                            isCheckCondition = false;
+                        }
                     }
-
+                    break;
+                case ENDTURN:
+                    stateMachine = isCheck(pieceToMove, board.getActivePlayer().getColor().equals("n") ? "b" : "n") ? TurnState.CHECK : TurnState.STARTTURN;
+                    this.board.setActivePlayer();
+                    break;
+                case ENDCHECKSTATE:
+                    this.board.setActivePlayer();
+                    stateMachine = TurnState.MOVE;
                     break;
             }
         }
     }
-    private boolean isCheck(Piece pPieceToMove){
-        Piece adversaryKing = board.getPieceByRepresentation("K");
+    private boolean isCheck(Piece pPieceToMove, String color){
+        Piece adversaryKing = board.getAdversaryPieceByRepresentation("K", color);
         int xKing = adversaryKing.getXCor();
         int yKing = adversaryKing.getYCor();
 

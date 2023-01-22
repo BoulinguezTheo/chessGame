@@ -106,7 +106,12 @@ public class ChessData {
                 .filter(p -> p.getXCor() == pCoordinates[0] && p.getYCor() == pCoordinates[1])
                 .findFirst().orElse(null);
     }
-    public Piece getPieceByRepresentation(String pRepresentation){
+    public Piece getAdversaryPieceByRepresentation(String pRepresentation, String color){
+        return getPieceList().stream()
+                .filter(p -> p.getColor().equals(color) && p.getRepresentation().equals(pRepresentation))
+                .findAny().orElse(null);
+    }
+    public Piece getOwnPieceByRepresentation(String pRepresentation){
         return getPieceList().stream()
                 .filter(p -> p.getColor().equals(activePlayer.getColor()) && p.getRepresentation().equals(pRepresentation))
                 .findAny().orElse(null);
