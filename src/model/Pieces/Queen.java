@@ -15,23 +15,19 @@ public class Queen extends Piece {
     @Override
     public ArrayList<int[]> getMovesPossible(ChessData pBoard){
         ArrayList<int[]> movesAvailable = new ArrayList<>();
-        int xIncrementation1 = 1;
-        int xIncrementation2 = -1;
-        int xIncrementation3 = 0;
+        int incrementation1 = 1;
+        int decrementation1 = -1;
+        int noIncrementation = 0;
 
-        int yIncrementation1 = 1;
-        int yIncrementation2 = -1;
-        int yIncrementation3 = 0;
+        bishopTypeMoves(pBoard, movesAvailable, incrementation1, incrementation1);
+        bishopTypeMoves(pBoard, movesAvailable, incrementation1, decrementation1);
+        bishopTypeMoves(pBoard, movesAvailable, decrementation1, incrementation1);
+        bishopTypeMoves(pBoard, movesAvailable, decrementation1, decrementation1);
 
-        bishopTypeMoves(pBoard, movesAvailable, xIncrementation1, yIncrementation1);
-        bishopTypeMoves(pBoard, movesAvailable, xIncrementation1, yIncrementation2);
-        bishopTypeMoves(pBoard, movesAvailable, xIncrementation2, yIncrementation1);
-        bishopTypeMoves(pBoard, movesAvailable, xIncrementation2, yIncrementation2);
-
-        towerTypeMoves(pBoard, movesAvailable, xIncrementation1, yIncrementation3);
-        towerTypeMoves(pBoard, movesAvailable, xIncrementation2, yIncrementation3);
-        towerTypeMoves(pBoard, movesAvailable, xIncrementation3, yIncrementation1);
-        towerTypeMoves(pBoard, movesAvailable, xIncrementation3, yIncrementation2);
+        towerTypeMoves(pBoard, movesAvailable, incrementation1, noIncrementation);
+        towerTypeMoves(pBoard, movesAvailable, decrementation1, noIncrementation);
+        towerTypeMoves(pBoard, movesAvailable, noIncrementation, incrementation1);
+        towerTypeMoves(pBoard, movesAvailable, noIncrementation, decrementation1);
 
         return movesAvailable;
     }
@@ -52,9 +48,8 @@ public class Queen extends Piece {
                 if(encounteredPiece != null && !super.color.equals(encounteredPiece.getColor())){
                     pMovesAvailable.add(new int[]{newXCor, newYCor});
                     break;
-                } else {
-                    break;
                 }
+                break;
             }
             newXCor += pXIncrementation;
             newYCor += pYIncrementation;
@@ -70,10 +65,8 @@ public class Queen extends Piece {
                 Piece encounteredPiece = pBoard.getPiece(new int[] {newXCor, newYCor});
                 if(encounteredPiece != null && !super.color.equals(encounteredPiece.getColor())){
                     pMovesAvailable.add(new int[]{newXCor, newYCor});
-                    break;
-                } else {
-                    break;
                 }
+                break;
             }
             newXCor += pXIncrementation;
             newYCor += pYIncrementation;

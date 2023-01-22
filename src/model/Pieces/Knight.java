@@ -16,28 +16,30 @@ public class Knight extends Piece {
     @Override
     public ArrayList<int[]> getMovesPossible(ChessData pBoard){
         ArrayList<int[]> availablesMoves = new ArrayList<>();
-        int[] firstMove = {(xCor + 2), (yCor - 1)};
+        int incrementation1 = 1;
+        int incrementation2 = 2;
+        int[] firstMove = {(xCor + incrementation2), (yCor + incrementation1)};
         addMove(firstMove, pBoard, availablesMoves);
 
-        int[] secondMove = {(xCor + 2), (yCor + 1)};
+        int[] secondMove = {(xCor + incrementation2), (yCor - incrementation1)};
         addMove(secondMove, pBoard, availablesMoves);
 
-        int[] thirdMove = {(xCor - 2), (yCor - 1)};
+        int[] thirdMove = {(xCor + incrementation1), (yCor - incrementation2)};
         addMove(thirdMove, pBoard, availablesMoves);
 
-        int[] fourthMove = {(xCor - 2), (yCor + 1)};
+        int[] fourthMove = {(xCor - incrementation1), (yCor - incrementation2)};
         addMove(fourthMove, pBoard, availablesMoves);
 
-        int[] fifthMove = {(xCor + 1), (yCor - 2)};
+        int[] fifthMove = {(xCor - incrementation2), (yCor + incrementation1)};
         addMove(fifthMove, pBoard, availablesMoves);
 
-        int[] sixthMove = {(xCor - 1), (yCor - 2)};
+        int[] sixthMove = {(xCor - incrementation2), (yCor - incrementation1)};
         addMove(sixthMove, pBoard, availablesMoves);
 
-        int[] seventhMove = {(xCor + 1), (yCor + 2)};
+        int[] seventhMove = {(xCor - incrementation1), (yCor + incrementation2)};
         addMove(seventhMove, pBoard, availablesMoves);
 
-        int[] eightMove = {(xCor - 1), (yCor + 2)};
+        int[] eightMove = {(xCor + incrementation1), (yCor + incrementation2)};
         addMove(eightMove, pBoard, availablesMoves);
 
         return availablesMoves;
@@ -54,7 +56,7 @@ public class Knight extends Piece {
             Piece pieceToEat = pBoard.getPiece(pMove);
             if(pBoard.getCells()[pMove[xIndex]][pMove[yIndex]].getCellContent().equals(" ")){
                 pAvailableMoves.add(pMove);
-            } else if(!pBoard.getCells()[pMove[xIndex]][pMove[yIndex]].getCellContent().equals(" ") && !super.color.equals(pieceToEat.getColor())){
+            } else if(pieceToEat != null && !pBoard.getCells()[pMove[xIndex]][pMove[yIndex]].getCellContent().equals(" ") && !color.equals(pieceToEat.getColor())){
                 pAvailableMoves.add(pMove);
             }
         }

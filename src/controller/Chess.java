@@ -140,7 +140,6 @@ private final static int asciiA = 97;
             }
             columnInput = (pieceToMove.charAt(0)) - asciiA;
             lineInput = (pieceToMove.charAt(1)) - ascii1;
-            System.out.println(lineInput);
             if (columnInput >= 0 && columnInput <= 7 && lineInput >= 0 && lineInput <= 7){
                 validInput = true;
             } else {

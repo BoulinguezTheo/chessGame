@@ -5,7 +5,7 @@ import java.util.Collection;
 
 public abstract class Piece {
     protected final static int xIndex = 0;
-    protected final static int yIndex = 0;
+    protected final static int yIndex = 1;
     protected String color;
     protected int xCor;
     protected int yCor;

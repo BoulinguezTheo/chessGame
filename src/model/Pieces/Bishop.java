@@ -35,19 +35,18 @@ public class Bishop extends Piece {
     }
 
     private void bishopMoves(ChessData pBoard, ArrayList<int[]> pMovesAvailable, int pXIncrementation, int pYIncrementation){
-        int newXCor = super.xCor + pXIncrementation;
-        int newYCor = super.yCor + pYIncrementation;
+        int newXCor = xCor + pXIncrementation;
+        int newYCor = yCor + pYIncrementation;
+
         while(newXCor >= 0 && newXCor <= 7 && newYCor >= 0 && newYCor <= 7){
             if(pBoard.getCells()[newXCor][newYCor].getCellContent().equals(" ")){
                 pMovesAvailable.add(new int[]{newXCor, newYCor});
             } else {
                 Piece encounteredPiece = pBoard.getPiece(new int[] {newXCor, newYCor});
-                if(encounteredPiece != null && !super.color.equals(encounteredPiece.getColor())){
+                if (encounteredPiece != null && !color.equals(encounteredPiece.getColor())){
                     pMovesAvailable.add(new int[]{newXCor, newYCor});
-                    break;
-                } else {
-                    break;
                 }
+                break;
             }
             newXCor += pXIncrementation;
             newYCor += pYIncrementation;

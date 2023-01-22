@@ -33,20 +33,22 @@ public class Pawn extends Piece {
     @Override
     public ArrayList<int[]> getMovesPossible(ChessData pBoard){
         ArrayList<int[]> availableMoves = new ArrayList<>();
+        int incrementation1 = 1;
+        int incrementation2 = 2;
         //normal move
         if (pBoard.getCells()[xCor + sign][yCor].getCellContent().equals(" ")) {
             availableMoves.add(new int[]{xCor + sign, yCor});
         }
         //move to eat to the left
-        int[] eatPiece1 = {xCor + sign, yCor + 1};
+        int[] eatPiece1 = {xCor + sign, yCor + incrementation1};
         eatMove(eatPiece1, pBoard, availableMoves);
 
         //move to eat to the right
-        int[] eatPiece2 = {xCor + sign, yCor - 1};
+        int[] eatPiece2 = {xCor + sign, yCor - incrementation1};
         eatMove(eatPiece2, pBoard, availableMoves);
 
         if (xCor == initXCor && yCor == initYCor && pBoard.getCells()[xCor + (2 * sign)][yCor].getCellContent().equals(" ")) {
-            availableMoves.add(new int[]{xCor + 2 * sign, yCor});
+            availableMoves.add(new int[]{xCor + incrementation2 * sign, yCor});
         }
 
         return availableMoves;
