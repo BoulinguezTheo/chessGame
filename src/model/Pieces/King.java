@@ -21,7 +21,7 @@ public class King extends Piece {
 
         return movesAvailable;
     }
-    public ArrayList<int[]> generateMoves(ChessData pBoard){
+    private ArrayList<int[]> generateMoves(ChessData pBoard){
         ArrayList<int[]> pMovesAvailable = new ArrayList<>();
         int xIncrementation1 = 1;
         int xIncrementation2 = -1;
@@ -50,10 +50,13 @@ public class King extends Piece {
         Set<int[]> otherPiecesMoves = new LinkedHashSet<>();
 
         for(Piece piece : pieceList){
-            if(piece.getRepresentation().equals(representation) && !piece.getColor().equals(color)){
-                otherPiecesMoves.addAll(piece.generateMoves(pBoard));
-            } else if (!piece.getColor().equals(color)) {
-                otherPiecesMoves.addAll(piece.getMovesPossible(pBoard));
+            if (!piece.getColor().equals(color)) {
+                if(piece instanceof King){
+                    King king = (King) piece;
+                    otherPiecesMoves.addAll(king.generateMoves(pBoard));
+                } else {
+                    otherPiecesMoves.addAll(piece.getMovesPossible(pBoard));
+                }
             }
         }
 

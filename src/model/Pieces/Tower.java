@@ -29,11 +29,6 @@ public class Tower extends Piece {
         return movesAvailable;
     }
 
-    @Override
-    public ArrayList<int[]> generateMoves(ChessData pBoard) {
-        return null;
-    }
-
     private void towerMoves(ChessData pBoard, ArrayList<int[]> pMovesAvailable, int pXIncrementation, int pYIncrementation){
         int newXCor = super.xCor + pXIncrementation;
         int newYCor = super.yCor + pYIncrementation;

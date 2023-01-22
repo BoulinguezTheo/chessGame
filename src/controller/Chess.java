@@ -32,7 +32,7 @@ private final static int asciiA = 97;
         Piece pieceToMove = null;
         int[] coordinatesDestination = null;
 
-        while(stateMachine != stateMachine.END){
+        while(stateMachine != TurnState.END){
 
             switch(stateMachine){
                 case STARTTURN:
@@ -71,8 +71,8 @@ private final static int asciiA = 97;
                         interactions.displayAskMoveTo();
                         interactions.displayEnterCoordinates();
                         coordinatesDestination = getCoordinates();
-                        if (correctMove(coordinatesDestination, pieceToMove) && isCheck(pieceInforcingCheck, board.getActivePlayer().getColor().equals("n") ? "n" : "b")){
-                            stateMachine = TurnState.ENDCHECKSTATE;
+                        if (correctMove(coordinatesDestination, pieceToMove) && isCheck(pieceInforcingCheck, board.getActivePlayer().getColor())){
+                            stateMachine = TurnState.MOVE;
                             isCheckCondition = false;
                         }
                     }
@@ -80,10 +80,6 @@ private final static int asciiA = 97;
                 case ENDTURN:
                     stateMachine = isCheck(pieceToMove, board.getActivePlayer().getColor().equals("n") ? "b" : "n") ? TurnState.CHECK : TurnState.STARTTURN;
                     this.board.setActivePlayer();
-                    break;
-                case ENDCHECKSTATE:
-                    this.board.setActivePlayer();
-                    stateMachine = TurnState.MOVE;
                     break;
             }
         }
@@ -118,10 +114,10 @@ private final static int asciiA = 97;
         Piece piece;
         interactions.displayAskPieceToMove();
         interactions.displayEnterCoordinates();
-        int[] coordinates = null;
+        //int[] coordinates = null;
         do {
-            coordinates = getCoordinates();
-            piece = board.getPiece(coordinates);
+            //coordinates = getCoordinates();
+            piece = board.getPiece(getCoordinates());
             if (piece == null) {
                 interactions.displayWrongInput();
                 interactions.displayEnterCoordinates();
@@ -129,7 +125,7 @@ private final static int asciiA = 97;
             } else if (!this.board.getActivePlayer().getColor().equalsIgnoreCase(piece.getColor())){
                 interactions.displayWrongInput();
                 interactions.displayEnterCoordinates();
-                coordinates = getCoordinates();
+                // coordinates = getCoordinates();
                 validPiece = false;
             }else {
                 validPiece = true;
